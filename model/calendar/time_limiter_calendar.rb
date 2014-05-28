@@ -1,8 +1,8 @@
 class TimeLimiterCalendar < Calendar
 
   def initialize(start_date, stop_date, start_time, stop_time)
-    @start_date = start_date
-    @stop_date = stop_date
+    @start_date = start_date.to_datetime
+    @stop_date = stop_date.to_datetime
     @start_time = start_time.split(':').map( &:to_i )
     @stop_time = stop_time.split(':').map( &:to_i )
     if @start_time.size != 3

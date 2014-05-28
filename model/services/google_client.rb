@@ -12,7 +12,8 @@ class GoogleClient
                                 'calendarId' => calendar_id,
                                 'timeMin' => start_date.strftime('%Y-%m-%dT%H:%M:%S%:z'),
                                 'timeMax' => stop_date.strftime('%Y-%m-%dT%H:%M:%S%:z'),
-                                'maxResults' => 2500
+                                'maxResults' => 2500,
+                                'singleEvents' => true
                               }
                              )
     if response.status != 200

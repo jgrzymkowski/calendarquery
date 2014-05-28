@@ -1,10 +1,13 @@
 require_relative './calendar'
 require_relative './time_range'
+require_relative '../util/date_util'
 
 class DayLimiterCalendar < Calendar
+  include DateUtil
+
   def initialize(start_date, stop_date, days)
-    @start_date = DateTime.new(start_date.year, start_date.month, start_date.day)
-    @stop_date = DateTime.new(stop_date.year, stop_date.month, stop_date.day)
+    @start_date = at_beginning_of_day( start_date )
+    @stop_date = at_beginning_of_day( stop_date )
     if  days.size != 7
       raise "Error reading days: #{days}.  It should be formatted: 0111110"
     end

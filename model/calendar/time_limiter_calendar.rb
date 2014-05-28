@@ -27,14 +27,18 @@ class TimeLimiterCalendar < Calendar
                              date.day,
                              @start_time[0],
                              @start_time[1],
-                             @start_time[2] )
+                             @start_time[2],
+                             date.zone
+                           )
         @events << TimeRange.new( start, stop )
         start = DateTime.new( date.year,
                               date.month,
                               date.day,
                               @stop_time[0],
                               @stop_time[1],
-                              @stop_time[2] )
+                              @stop_time[2],
+                              date.zone
+                            )
         date = date.next
       end
       stop = @stop_date

@@ -10,8 +10,8 @@ class GoogleClient
                               :key => KEY,
                               :parameters => {
                                 'calendarId' => calendar_id,
-                                'timeMin' => start_date,
-                                'timeMax' => stop_date,
+                                'timeMin' => start_date.strftime('%Y-%m-%dT%H:%M:%S%:z'),
+                                'timeMax' => stop_date.strftime('%Y-%m-%dT%H:%M:%S%:z'),
                                 'maxResults' => 2500
                               }
                              )

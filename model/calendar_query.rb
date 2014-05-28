@@ -3,15 +3,17 @@ require_relative './calendar/time_limiter_calendar'
 require_relative './calendar/calendar_builder'
 require_relative './services/google_client'
 require_relative './finder/free_finder'
+require_relative './util/date_util'
 
 class CalendarQuery
   include CalendarBuilder
+  include DateUtil
+
   attr_accessor :start_date, :stop_date, :days, :start_time, :stop_time, :calendar_ids
 
   def initialize( printer, params )
     @printer = printer
-    today = Date.today
-    @start_date = params[:start_date] || at_beginning_of_day( today )
+    @start_date = params[:start_date] || at_beginning_of_day( Date.today.to_datetime )
     @stop_date = params[:stop_date] || @start_date >> 1
     @days = params[:days] || '1111111'
     @start_time = params[:start_time] || '00:00:00'
@@ -58,10 +60,6 @@ class CalendarQuery
       current_day = at_beginning_of_day( event.start )
     end
 
-  end
-
-  def at_beginning_of_day( datetime )
-    DateTime.new(datetime.year, datetime.month, datetime.day )
   end
 
   def print_date( datetime )

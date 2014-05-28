@@ -9,6 +9,7 @@ class TimeRange
   def eql?( other )
     self.class == other.class && self.start.eql?(other.start) && self.stop.eql?(other.stop)
   end
+  alias_method :==, :eql?
 
 
 end

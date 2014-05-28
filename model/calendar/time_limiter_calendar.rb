@@ -16,6 +16,9 @@ class TimeLimiterCalendar < Calendar
   def events
     unless @events
       @events = []
+      if @start_time == @stop_time
+        return events
+      end
       date = @start_date
       start = @start_date
       while( date < @stop_date )

@@ -1,4 +1,8 @@
 require_relative './calendar/day_limiter_calendar'
+require_relative './calendar/time_limiter_calendar'
+require_relative './calendar/calendar_builder'
+require_relative './services/google_client'
+require_relative './finder/free_finder'
 
 class CalendarQuery
   include CalendarBuilder
@@ -9,13 +13,14 @@ class CalendarQuery
     today = Date.today
     @start_date = params[:start_date] || at_beginning_of_day( today )
     @stop_date = params[:stop_date] || @start_date >> 1
-    @days = params[:days] || '0000000'
+    @days = params[:days] || '1111111'
     @start_time = params[:start_time] || '00:00:00'
     @stop_time = params[:stop_time] || '00:00:00'
     @calendar_ids = params[:calendar_ids] || []
   end
 
   def run
+    print_metadata
     google_client = GoogleClient.new
     calendars = @calendar_ids.map do |calendar_id|
       calendar_hash = google_client.load_calendars( calendar_id, @start_date, @stop_date )
@@ -29,6 +34,16 @@ class CalendarQuery
   end
 
   private
+  def print_metadata
+    @printer.print 'Running query...'
+    @printer.print "Start Date: #{print_date(@start_date)}"
+    @printer.print "End Date: #{print_date(@stop_date)}"
+    @printer.print "Days: #{@days}"
+    @printer.print "Start Time: #{@start_time}"
+    @printer.print "End Time: #{@stop_time}"
+    @printer.print "Calendar Ids:: #{@calendar_ids}"
+  end
+
   def print_events( free_times )
     unless free_times.empty?
       current_day = at_beginning_of_day( free_times[0].start )
@@ -50,10 +65,10 @@ class CalendarQuery
   end
 
   def print_date( datetime )
-    datetime.strftime( '%m/%d/%Y' )
+    datetime.strftime( '%A %m/%d/%Y' )
   end
 
   def print_range( event )
-    "#{event.start.strftime( '%I:%M %p' )} to #{event.stop.strftime( '%I:%M %p' )}"
+    "     #{event.start.strftime( '%A %m/%d/%Y %I:%M %p' )} to #{event.stop.strftime( '%A %m/%d/%Y %I:%M %p' )}"
   end
 end

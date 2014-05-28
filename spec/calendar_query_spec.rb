@@ -12,7 +12,7 @@ describe CalendarQuery do
       query = CalendarQuery.new( printer, {} )
       expect( query.start_date ).to eql( DateTime.new(2014,1,1) )
       expect( query.stop_date ).to eql( DateTime.new(2014,2,1) )
-      expect( query.days ).to eql( '0000000' )
+      expect( query.days ).to eql( '1111111' )
       expect( query.start_time ).to eql( '00:00:00' )
       expect( query.stop_time ).to eql( '00:00:00' )
       expect( query.calendar_ids ).to eql( [] )

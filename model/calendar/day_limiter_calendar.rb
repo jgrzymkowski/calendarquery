@@ -1,3 +1,6 @@
+require_relative './calendar'
+require_relative './time_range'
+
 class DayLimiterCalendar < Calendar
   def initialize(start_date, stop_date, days)
     @start_date = DateTime.new(start_date.year, start_date.month, start_date.day)

@@ -1,6 +1,9 @@
 calendarquery
 =============
 
+A simple ruby script used for a job interview in 2014.
+
+
 To run:
 
 Execute run.rb with the following (optional) commands:
